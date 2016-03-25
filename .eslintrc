@@ -3,6 +3,7 @@
     "array-bracket-spacing": [ 2, "always" ],
     "camelcase": [ 2, { "properties": "always" } ],
     "eol-last": 2,
+    "max-len": [2, 100, 4],
     "indent": [ 2, 4, { "SwitchCase": 1 } ],
     "quotes": [ 2, "single" ],
     "linebreak-style": [ 2, "unix" ],
