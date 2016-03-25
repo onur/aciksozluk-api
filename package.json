@@ -4,7 +4,7 @@
   "description": "Açık Sözlük",
   "main": "app.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha --sort"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
@@ -17,11 +17,11 @@
   },
   "devDependencies": {
     "chai": "3.5.0",
-    "mocha": "2.4.5",
-    "sinon": "1.17.3",
     "ghooks": "1.0.3",
     "gulp": "3.9.1",
-    "gulp-eslint": "2.0.0"
+    "gulp-eslint": "2.0.0",
+    "gulp-mocha": "2.2.0",
+    "mocha": "2.4.5"
   },
   "config": {
     "ghooks": {
