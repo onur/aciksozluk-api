@@ -1,0 +1,24 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "./db.development.sqlite"
+  },
+  "test": {
+    "username": "aciksozluk",
+    "password": null,
+    "database": "aciksozluk_test",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "protocol": "postgres"
+  },
+  "production": {
+    "username": "aciksozluk",
+    "password": null,
+    "database": "aciksozluk",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "protocol": "postgres"
+  }
+}
