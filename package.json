@@ -4,7 +4,7 @@
   "description": "Açık Sözlük",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
@@ -13,6 +13,23 @@
   "author": "Açık Sözlük Geliştiricileri <aciksozluk@users.noreply.github.com>",
   "license": "AGPL 3.0",
   "bugs": {
-    "url": "https://github.com/aciksozluk/aciksozluk/issues"
+    "url": "https://github.com/aciksozluk/aciksozluk-api/issues"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "ghooks": "1.0.3",
+    "gulp": "3.9.1",
+    "gulp-eslint": "2.0.0",
+    "gulp-mocha": "2.2.0",
+    "mocha": "2.4.5"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "gulp lint && npm ls",
+      "pre-push": "npm test",
+      "post-merge": "npm install",
+      "post-rewrite": "npm install",
+      "pre-rebase": "npm install"
+    }
   }
 }
