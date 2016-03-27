@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
             comment: 'id',
             field: 'id'
         },
-        userName: {
+        username: {
             type: DataTypes.STRING(50),
             allowNull: false,
             comment: 'user name',
@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
             },
             field: 'user_name'
         },
-        eMail: {
+        email: {
             type: DataTypes.STRING(100),
             allowNull: false,
             validate: {
