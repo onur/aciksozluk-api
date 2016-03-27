@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('user', {
+    return sequelize.define('User', {
         id: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
@@ -67,5 +67,10 @@ module.exports = function(sequelize, DataTypes) {
             comment: 'user last login time',
             field: 'last_login_date'
         }
+    }, {
+        timestamps: true,
+        paranoid: true,
+        freezeTableName: true,
+        tableName: 'user'
     });
 };
