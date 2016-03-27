@@ -4,7 +4,7 @@ var eslint = require('gulp-eslint');
 var mocha = require('gulp-mocha');
 
 gulp.task('lint', function() {
-    return gulp.src(['**/*.js', '!node_modules/**', '!coverage/**'])
+    return gulp.src(['**/*.js', 'bin/www', 'bin/*.js', '!node_modules/**', '!coverage/**'])
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failOnError());
