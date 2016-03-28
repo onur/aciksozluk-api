@@ -4,7 +4,7 @@
     "storage": "./db.development.sqlite"
   },
   "test": {
-    "username": "aciksozluk",
+    "username": "postgres",
     "password": null,
     "database": "aciksozluk_test",
     "host": "127.0.0.1",

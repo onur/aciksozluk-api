@@ -3,17 +3,12 @@ node_js:
   - "0.10"
   - "4"
   - "5"
-before_install:
-  - sudo apt-get install -y libsqlite3-dev
+services:
+  - postgresql
 install:
-  - npm install --build-from-source
+  - npm install
+before_script:
+  - psql -c 'CREATE DATABASE aciksozluk_test;' -U postgres
 script: gulp
 env:
-  - CC=gcc-4.9 CXX=g++-4.9
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - gcc-4.9
-    - g++-4.9
+  - NODE_ENV=test
