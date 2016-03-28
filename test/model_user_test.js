@@ -40,7 +40,7 @@ describe('models/user', function() {
         });
 
 
-        it('fails if username exists', function(done) {
+        it('fails if username is not unique', function(done) {
             return this.User.create(this.testData).bind(this).then(function() {
                 // create second user with same username
                 this.User.create({
@@ -58,7 +58,7 @@ describe('models/user', function() {
         });
 
 
-        it('fails if email exists', function(done) {
+        it('fails if email is not unique', function(done) {
             return this.User.create(this.testData).bind(this).then(function() {
                 // create second user with same username
                 this.User.create({
