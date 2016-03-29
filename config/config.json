@@ -13,12 +13,7 @@
     "protocol": "postgres"
   },
   "production": {
-    "username": "aciksozluk",
-    "password": null,
-    "database": "aciksozluk",
-    "host": "127.0.0.1",
-    "port": 5432,
-    "dialect": "postgres",
-    "protocol": "postgres"
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres"
   }
 }
