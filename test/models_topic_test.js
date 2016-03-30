@@ -4,7 +4,7 @@ var expect = require('chai').expect;
 
 describe('models/topic', function() {
 
-    beforeEach(function(done) {
+    beforeEach(function() {
         // disable logging for tests
         // it's getting extremely explicit
         // you can turn on logging by commenting out next line
@@ -18,9 +18,7 @@ describe('models/topic', function() {
 
         this.Topic = models.Topic;
         this.Category = models.Category;
-        models.sequelize.sync({ force: true }).then(function() {
-            done();
-        });
+        return models.sequelize.sync({ force: true });
     });
 
 

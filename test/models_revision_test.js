@@ -3,7 +3,7 @@ var expect = require('chai').expect;
 
 describe('models/revision', function() {
 
-    beforeEach(function(done) {
+    beforeEach(function() {
         var models = require('../models');
 
         // disable logging for tests
@@ -14,15 +14,14 @@ describe('models/revision', function() {
         this.Revision = models.Revision;
 
         // create a test user and entry to use in all tests
-        models.sequelize.sync({ force: true }).bind(this).then(function() {
-            models.User.create({
+        return models.sequelize.sync({ force: true }).bind(this).then(function() {
+            return models.User.create({
                 username: 'example',
                 password: 'example',
                 email: 'example@example.org'
             }).bind(this).then(function(user) {
-                user.createEntry({ content: 'Test' }).bind(this).then(function(entry) {
+                return user.createEntry({ content: 'Test' }).bind(this).then(function(entry) {
                     this.entry = entry;
-                    done();
                 });
             });
         });

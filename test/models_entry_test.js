@@ -4,7 +4,7 @@ var expect = require('chai').expect;
 
 describe('models/entry', function() {
 
-    beforeEach(function(done) {
+    beforeEach(function() {
         var models = require('../models');
 
         // disable logging for tests
@@ -15,14 +15,13 @@ describe('models/entry', function() {
         this.Entry = models.Entry;
 
         // create a test user to use in all tests
-        models.sequelize.sync({ force: true }).bind(this).then(function() {
-            models.User.create({
+        return models.sequelize.sync({ force: true }).bind(this).then(function() {
+            return models.User.create({
                 username: 'example',
                 password: 'example',
                 email: 'example@example.org'
             }).bind(this).then(function(user) {
                 this.user = user;
-                done();
             });
         });
     });

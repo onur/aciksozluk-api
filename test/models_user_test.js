@@ -5,7 +5,7 @@ var expect = require('chai').expect;
 
 describe('models/user', function() {
 
-    beforeEach(function(done) {
+    beforeEach(function() {
         // disable logging for tests
         // it's getting extremely explicit
         // you can turn on logging by commenting out next line
@@ -19,9 +19,7 @@ describe('models/user', function() {
             password: 'myUberPassword)__(*&*44234!!@'
         };
         this.User = models.User;
-        models.sequelize.sync({ force: true }).then(function() {
-            done();
-        });
+        return models.sequelize.sync({ force: true });
     });
 
     describe('create', function() {
