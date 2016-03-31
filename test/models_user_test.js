@@ -164,27 +164,47 @@ describe('models/user', function() {
     });
 
 
-    it('compares plaintext password with passwordHash', function() {
-        return this.User.create(this.testData).bind(this).then(function(user) {
-            var compare = user.comparePassword(this.testData.password);
-            expect(compare).to.be.true;
+    describe('user', function() {
+        beforeEach(function() {
+            return this.User.create(this.testData).bind(this).then(function(user) {
+                return this.Topic.create({
+                    title: 'example topic'
+                }).bind(this).then(function(topic) {
+                    this.testUser = user;
+                    this.testTopic = topic;
+                });
+            });
         });
-    });
 
 
-    it('can create entries', function() {
-        return this.User.create(this.testData).bind(this).then(function(user) {
-            return this.Topic.create({
-                title: 'example topic'
-            }).bind(this).then(function(topic) {
-                return user.createEntry({
-                    content: 'test entry',
-                    TopicId: topic.id
-                }).bind(this).then(function(entry) {
-                    expect(entry).to.be.ok;
+        it('compares plaintext password with passwordHash', function() {
+            var comparison = this.testUser.comparePassword(this.testData.password);
+            expect(comparison).to.be.true;
+        });
+
+
+        it('can create entries', function() {
+            return this.testUser.createEntry({
+                content: 'test entry',
+                TopicId: this.testTopic.id
+            }).bind(this).then(function(entry) {
+                expect(entry).to.be.ok;
+            });
+        });
+
+
+        it('can vote for entries', function() {
+            return this.testUser.createEntry({
+                content: 'test entry',
+                TopicId: this.testTopic.id
+            }).bind(this).then(function(entry) {
+                return this.testUser.createVote({
+                    type: 'upvote',
+                    EntryId: entry.id
+                }).bind(this).then(function(vote) {
+                    expect(vote).to.be.ok;
                 });
             });
         });
     });
-
 });

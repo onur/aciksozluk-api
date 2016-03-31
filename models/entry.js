@@ -3,7 +3,10 @@
 module.exports = function(sequelize, DataTypes) {
 
     var createRevisionHook = function(entry) {
-        return entry.createRevision({ content: entry.content });
+        return entry.createRevision({
+            content: entry.content,
+            ip: entry.ip
+        });
     };
 
     var Entry = sequelize.define('Entry', {
@@ -25,9 +28,32 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING(60000),
             allowNull: false
         },
-        votes: {
+        ip: {
+            type: DataTypes.STRING(45)
+        },
+        totalVoteCount: {
             type: DataTypes.INTEGER,
-            defaultValue: 1,
+            defaultValue: 0,
+            allowNull: false
+        },
+        dailyVoteCount: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            allowNull: false
+        },
+        weeklyVoteCount: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            allowNull: false
+        },
+        montlyVoteCount: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            allowNull: false
+        },
+        yearlyVoteCount: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
             allowNull: false
         }
     }, {
@@ -35,6 +61,7 @@ module.exports = function(sequelize, DataTypes) {
             associate: function(models) {
                 Entry.belongsTo(models.User, { foreignKey: { allowNull: false } });
                 Entry.belongsTo(models.Topic, { foreignKey: { allowNull: false } });
+                Entry.hasMany(models.Vote, { foreignKey: { allowNull: false } });
                 Entry.hasMany(models.Revision, { foreignKey: { allowNull: false } });
             }
         },

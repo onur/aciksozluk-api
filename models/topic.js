@@ -27,12 +27,27 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: 0,
             allowNull: false
         },
-        voteCount: {
+        totalVoteCount: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
             allowNull: false
         },
         dailyVoteCount: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            allowNull: false
+        },
+        weeklyVoteCount: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            allowNull: false
+        },
+        montlyVoteCount: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            allowNull: false
+        },
+        yearlyVoteCount: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
             allowNull: false

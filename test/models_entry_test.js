@@ -65,6 +65,20 @@ describe('models/entry', function() {
         });
 
 
+        it('saves ip in revision', function() {
+            this.testData.ip = '127.0.0.1';
+            return this.Entry.create(this.testData).bind(this).then(function(entry) {
+                expect(entry.ip).to.equal('127.0.0.1');
+                return entry.getRevisions().bind(this).then(function(revisions) {
+                    expect(revisions).to.be.ok;
+                    expect(revisions).to.have.lengthOf(1);
+                    expect(revisions[0].content).to.equal('test content');
+                    expect(revisions[0].ip).to.equal('127.0.0.1');
+                });
+            });
+        });
+
+
         // TODO: Add contentRendered and contentRenderedPlain tests
 
     });

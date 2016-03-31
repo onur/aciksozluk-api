@@ -5,6 +5,9 @@ module.exports = function(sequelize, DataTypes) {
         content: {
             type: DataTypes.STRING(50000),
             allowNull: false
+        },
+        ip: {
+            type: DataTypes.STRING(45)
         }
     }, {
         classMethods: {
