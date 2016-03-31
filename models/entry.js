@@ -34,6 +34,7 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 Entry.belongsTo(models.User, { foreignKey: { allowNull: false } });
+                Entry.belongsTo(models.Topic, { foreignKey: { allowNull: false } });
                 Entry.hasMany(models.Revision, { foreignKey: { allowNull: false } });
             }
         },

@@ -41,6 +41,7 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 Topic.belongsToMany(models.Category, { through: 'TopicCategories' });
+                Topic.hasMany(models.Entry, { foreignKey: { allowNull: false } });
             }
         }
     });

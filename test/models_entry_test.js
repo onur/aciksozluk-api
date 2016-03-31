@@ -22,6 +22,16 @@ describe('models/entry', function() {
                 email: 'example@example.org'
             }).bind(this).then(function(user) {
                 this.user = user;
+                return models.Topic.create({
+                    title: 'example topic'
+                }).bind(this).then(function(topic) {
+                    this.topic = topic;
+                    this.testData = {
+                        content: 'test content',
+                        UserId: this.user.id,
+                        TopicId: this.topic.id
+                    };
+                });
             });
         });
     });
@@ -29,10 +39,7 @@ describe('models/entry', function() {
 
     describe('create', function() {
         it('creates an entry', function() {
-            return this.Entry.create({
-                content: 'test content',
-                UserId: this.user.id
-            }).bind(this).then(function(entry) {
+            return this.Entry.create(this.testData).bind(this).then(function(entry) {
                 expect(entry).to.be.ok;
             });
         });
@@ -48,10 +55,7 @@ describe('models/entry', function() {
 
 
         it('creates a revision', function() {
-            return this.Entry.create({
-                content: 'test content',
-                UserId: this.user.id
-            }).bind(this).then(function(entry) {
+            return this.Entry.create(this.testData).bind(this).then(function(entry) {
                 return entry.getRevisions().bind(this).then(function(revisions) {
                     expect(revisions).to.be.ok;
                     expect(revisions).to.have.lengthOf(1);
@@ -67,10 +71,7 @@ describe('models/entry', function() {
 
 
     it('creates a revision on update', function() {
-        return this.Entry.create({
-            content: 'test content',
-            UserId: this.user.id
-        }).bind(this).then(function(entry) {
+        return this.Entry.create(this.testData).bind(this).then(function(entry) {
             // update must create another revision
             return entry.update({
                 content: 'another test content'

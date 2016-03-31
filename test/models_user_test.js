@@ -19,6 +19,7 @@ describe('models/user', function() {
             password: 'myUberPassword)__(*&*44234!!@'
         };
         this.User = models.User;
+        this.Topic = models.Topic;
         return models.sequelize.sync({ force: true });
     });
 
@@ -173,8 +174,15 @@ describe('models/user', function() {
 
     it('can create entries', function() {
         return this.User.create(this.testData).bind(this).then(function(user) {
-            return user.createEntry({ content: 'test entry' }).bind(this).then(function(entry) {
-                expect(entry).to.be.ok;
+            return this.Topic.create({
+                title: 'example topic'
+            }).bind(this).then(function(topic) {
+                return user.createEntry({
+                    content: 'test entry',
+                    TopicId: topic.id
+                }).bind(this).then(function(entry) {
+                    expect(entry).to.be.ok;
+                });
             });
         });
     });

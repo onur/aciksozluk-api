@@ -20,8 +20,14 @@ describe('models/revision', function() {
                 password: 'example',
                 email: 'example@example.org'
             }).bind(this).then(function(user) {
-                return user.createEntry({ content: 'Test' }).bind(this).then(function(entry) {
-                    this.entry = entry;
+                return models.Topic.create({
+                    title: 'example topic'
+                }).bind(this).then(function(topic) {
+                    return user.createEntry({
+                        content: 'Test', TopicId: topic.id
+                    }).bind(this).then(function(entry) {
+                        this.entry = entry;
+                    });
                 });
             });
         });
