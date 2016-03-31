@@ -15,8 +15,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         slug: {
             type: DataTypes.STRING(50),
-            allowNull: false,
-            unique: true
+            allowNull: false
         },
         entryCount: {
             type: DataTypes.INTEGER,
