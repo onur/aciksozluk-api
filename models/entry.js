@@ -46,7 +46,7 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: 0,
             allowNull: false
         },
-        montlyVoteCount: {
+        monthlyVoteCount: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
             allowNull: false
