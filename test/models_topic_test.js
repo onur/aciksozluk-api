@@ -1,57 +1,66 @@
 'use strict';
 
 var expect = require('chai').expect;
+var Promise = require('bluebird');
+
+var models = require('../models');
+var Topic = models.Topic;
+var Category = models.Category;
 
 describe('models/topic', function() {
+    var testData = {
+        title: 'Example Topic'
+    };
 
-    beforeEach(function() {
-        // disable logging for tests
-        // it's getting extremely explicit
-        // you can turn on logging by commenting out next line
-        require('../models').sequelize.options.logging = false;
+    // disable logging for tests
+    // it's getting extremely explicit
+    // you can turn on logging by commenting out next line
+    models.sequelize.options.logging = false;
 
-        this.testData = {
-            title: 'Example Topic'
-        };
-
-        var models = require('../models');
-
-        this.Topic = models.Topic;
-        this.Category = models.Category;
-        return models.sequelize.sync({ force: true });
+    beforeEach(function(done) {
+        models.sequelize.sync({ force: true }).then(function(result) { // eslint-disable-line
+            done();
+        }).catch(done);
     });
-
 
     describe('create', function() {
-        it('creates a topic', function() {
-            return this.Topic.create(this.testData).bind(this).then(function(topic) {
-                expect(topic.title).to.equal(this.testData.title);
+        it('creates a topic', function(done) {
+            Topic.create(testData).then(function(topic) {
+                expect(topic.title).to.equal(testData.title);
                 expect(topic.slug).to.equal('example-topic');
                 expect(topic.entryCount).to.equal(0);
+
+                done();
             });
         });
 
-        it('fails if title is not unique', function() {
-            return this.Topic.create(this.testData).bind(this).then(function() {
-                this.Topic.create(this.testData).catch(function(error) {
-                    expect(error.name).to.equal('SequelizeUniqueConstraintError');
-                });
+        it('fails if title is not unique', function(done) {
+            Promise.all([
+                Topic.create(testData),
+                Topic.create(testData)
+            ]).catch(function(error) {
+                expect(error.name).to.equal('SequelizeUniqueConstraintError');
+
+                done();
             });
         });
     });
 
-
-
-    it('may belongs to categories', function() {
-        return this.Topic.create(this.testData).bind(this).then(function(topic) {
-            return this.Category.create(this.testData).bind(this).then(function(category) {
-                return topic.addCategory(category).bind(this).then(function() {
-                    return topic.getCategories().bind(this).then(function(categories) {
-                        expect(categories).to.have.length.of.at.least(1);
-                        expect(categories[0].title).to.equal(this.testData.title);
-                    });
+    it('may belongs to categories', function(done) {
+        Promise.props({
+            topic: Topic.create(testData),
+            category: Category.create(testData)
+        }).then(function(results) {
+            // addCategory will return a TopicCategory entity but we're only interested in the topic
+            return results.topic.addCategory(results.category)
+                .then(function(topicCategory) { // eslint-disable-line
+                    return results.topic.getCategories();
                 });
-            });
+        }).then(function(categories) {
+            expect(categories).to.have.length.of.at.least(1);
+            expect(categories[0].title).to.equal(testData.title);
+
+            done();
         });
     });
 });

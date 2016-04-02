@@ -4,25 +4,22 @@ var expect = require('chai').expect;
 
 
 describe('models/index', function() {
-
-    before(function() {
-        this.tempEnv = {
-            NODE_ENV: process.env.NODE_ENV,
-            DATABASE_URL: process.env.DATABASE_URL
-        };
-    });
+    var tempEnv = {
+        NODE_ENV: process.env.NODE_ENV,
+        DATABASE_URL: process.env.DATABASE_URL
+    };
 
     afterEach(function() {
         delete require.cache[require.resolve('../models')];
     });
 
     after(function() {
-        process.env.DATABASE_URL = this.tempEnv.DATABASE_URL;
-        process.env.NODE_ENV = this.tempEnv.NODE_ENV;
-        if (this.tempEnv.DATABASE_URL === undefined) {
+        process.env.DATABASE_URL = tempEnv.DATABASE_URL;
+        process.env.NODE_ENV = tempEnv.NODE_ENV;
+        if (tempEnv.DATABASE_URL === undefined) {
             delete process.env.DATABASE_URL;
         }
-        if (this.tempEnv.NODE_ENV === undefined) {
+        if (tempEnv.NODE_ENV === undefined) {
             delete process.env.NODE_ENV;
         }
     });

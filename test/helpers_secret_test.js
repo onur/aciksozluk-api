@@ -6,13 +6,10 @@ var secretHelperPath = '../helpers/secret';
 
 
 describe('helpers/secret', function() {
-
-    before(function() {
-        this.tempEnv = {
-            SECRET_KEY: process.env.SECRET_KEY,
-            NODE_ENV: process.env.NODE_ENV
-        };
-    });
+    var tempEnv = {
+        SECRET_KEY: process.env.SECRET_KEY,
+        NODE_ENV: process.env.NODE_ENV
+    };
 
     beforeEach(function() {
         delete require.cache[require.resolve(secretHelperPath)];
@@ -21,12 +18,12 @@ describe('helpers/secret', function() {
     });
 
     after(function() {
-        process.env.SECRET_KEY = this.tempEnv.SECRET_KEY;
-        process.env.NODE_ENV = this.tempEnv.NODE_ENV;
-        if (this.tempEnv.SECRET_KEY === undefined) {
+        process.env.SECRET_KEY = tempEnv.SECRET_KEY;
+        process.env.NODE_ENV = tempEnv.NODE_ENV;
+        if (tempEnv.SECRET_KEY === undefined) {
             delete process.env.SECRET_KEY;
         }
-        if (this.tempEnv.NODE_ENV === undefined) {
+        if (tempEnv.NODE_ENV === undefined) {
             delete process.env.NODE_ENV;
         }
     });
