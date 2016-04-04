@@ -46,7 +46,7 @@ describe('models/topic', function() {
         });
     });
 
-    it('may belongs to categories', function(done) {
+    it('may belong to categories', function(done) {
         Promise.props({
             topic: Topic.create(testData),
             category: Category.create(testData)
