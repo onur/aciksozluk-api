@@ -30,7 +30,7 @@ describe('models/entry', function() {
             }).then(function(results) {
                 testUser = results.user;
                 testTopic = results.topic;
-                
+
                 testData = {
                     content: 'test content',
                     UserId: testUser.id,
