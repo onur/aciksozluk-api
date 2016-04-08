@@ -70,9 +70,6 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     }, {
-        timestamps: true,
-        paranoid: true,
-        freezeTableName: true,
         classMethods: {
             associate: function(models) {
                 User.hasMany(models.Entry, { foreignKey: { allowNull: false } });

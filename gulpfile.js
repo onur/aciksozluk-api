@@ -12,8 +12,7 @@ gulp.task('lint', function() {
 
 gulp.task('test', function() {
     return gulp.src(['test/**/*.js'], { read: false })
-        .pipe(mocha({ reporter: 'spec' }))
-        .pipe(eslint.failOnError());
+        .pipe(mocha({ reporter: 'spec', timeout: 5000 }));
 });
 
 gulp.task('default', ['test', 'lint']);
