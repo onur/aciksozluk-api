@@ -1,0 +1,10 @@
+site_name: Açık Sözlük API
+pages:
+    - Ana Sayfa: index.md
+    - Yetkilendirme ve kimlik doğrulama: auth.md
+    - Kullanıcılar: user.md
+theme: readthedocs
+markdown_extensions:
+    - toc:
+        permalink: 
+    - admonition
