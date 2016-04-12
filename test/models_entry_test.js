@@ -64,6 +64,17 @@ describe('models/entry', function() {
         });
 
 
+        it('increases entryCount of topic', function(done) {
+            Entry.create(testData).then(function(entry) {
+                expect(entry).to.be.ok;
+                return entry.getTopic();
+            }).then(function(topic) {
+                expect(topic.entryCount).to.equal(1);
+                done();
+            });
+        });
+
+
         it('creates a revision', function(done) {
             Entry.create(testData)
                 .then(function(entry) {

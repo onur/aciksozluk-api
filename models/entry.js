@@ -66,6 +66,11 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         hooks: {
+            beforeCreate: function(entry) {
+                entry.getTopic().then(function(topic) {
+                    topic.increment('entryCount');
+                });
+            },
             afterCreate: createRevisionHook,
             afterUpdate: createRevisionHook
         }
